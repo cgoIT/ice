@@ -753,14 +753,16 @@
   };
   dom.browser = function () {
     var result = {};
-    result.version = jQuery.browser.version;
-    if (jQuery.browser.mozilla === true) {
+    result.version = jQuery.ua.browser.version;
+    if (jQuery.ua.browser.name === "Mozilla") {
       result.type = 'mozilla';
-    } else if (jQuery.browser.msie === true) {
+    } else if (jQuery.ua.browser.name === "Chrome") {
+      result.type = 'chrome';
+    } else if (jQuery.ua.browser.name === "MSIE") {
       result.type = 'msie';
-    } else if (jQuery.browser.opera === true) {
+    } else if (jQuery.ua.browser.name === "Opera") {
       result.type = 'opera';
-    } else if (jQuery.browser.webkit === true) {
+    } else if (jQuery.ua.engine.name === "Webkit") {
       result.type = 'webkit';
     }
     return result;
