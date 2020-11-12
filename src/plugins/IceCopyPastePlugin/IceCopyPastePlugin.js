@@ -49,12 +49,16 @@ IceCopyPastePlugin.prototype = {
   },
 
   keyDown: function(e) {
-    if (e.metaKey !== true && e.ctrlKey !== true)
+    if (e.metaKey !== true && e.ctrlKey !== true) {
+      this.ctrlPressed = false;
       return;
-    if (e.keyCode == 86)
+    }
+
+    if (e.keyCode === 86) {
       this.handlePaste();
-    else if (e.keyCode == 88)
+    } else if (e.keyCode === 88) {
       this.handleCut();
+    }
     return true;
   },
 
@@ -127,6 +131,11 @@ IceCopyPastePlugin.prototype = {
     return true;
   },
 
+  addContentToPasteDiv: function(html) {
+    var pasteDiv = this._ice.env.document.getElementById(this._pasteId);
+    ice.dom.setHtml(pasteDiv, html);
+  },
+
   // By the time we get here, the pasted content will already be in the body. Extract the
   // paste, format it, remove any Microsoft or extraneous tags outside of `this.preserve`
   // and merge the pasted content into the original fragment body.
@@ -162,9 +171,10 @@ IceCopyPastePlugin.prototype = {
     // If fragment contains block level elements, most likely we will need to
     // do some splitting so we do not have P tags in P tags, etc. Split the
     // container from current selection and then insert paste contents after it.
-    if(ice.dom.hasBlockChildren(fragment)) {
+    var hasBlockChildren = ice.dom.hasBlockChildren(fragment);
+    var block = ice.dom.isChildOfTagName(this._tmpNode, this._ice.blockEl);
+    if(hasBlockChildren && block) {
       // Split from current selection.
-      var block = ice.dom.isChildOfTagName(this._tmpNode, this._ice.blockEl);
       range.setEndAfter(block.lastChild);
       this._ice.selection.addRange(range);
       var contents = range.extractContents();

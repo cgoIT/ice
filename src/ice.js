@@ -9,6 +9,7 @@
     userIdAttribute: 'data-userid',
     userNameAttribute: 'data-username',
     timeAttribute: 'data-time',
+    titleFormat: false,
 
     // Prepended to `changeType.alias` for classname uniqueness, if needed
     attrValuePrefix: '',
@@ -1512,10 +1513,15 @@
         /************************************************************************************/
 
         case 32:
-          preventDefault = true;
           var range = this.getCurrentRange();
-          this._moveRangeToValidTrackingPos(range, range.startContainer);
-          this.insert('\u00A0' , range);
+          if (!range.collapsed) {
+            preventDefault = true;
+            this.insert('\u00A0' , range);
+            this._moveRangeToValidTrackingPos(range, range.startContainer);
+            this.insert('\u00A0' , range);
+          } else {
+            preventDefault = false;
+          }
           break;
         default:
           // Ignore key.

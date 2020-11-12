@@ -195,15 +195,10 @@ IcePluginManager.prototype = {
       break;
 
       default:
-        var code;
-        if (e.keyCode) {
-          code = e.keyCode;
-        } else if (e.which) {
-          code = e.which;
-        }
+        var code = e.char || e.charCode || e.which;
 
-        // Other characters (a-z0-9..).
-        if (code) {
+        // Other characters (a-z0-9..). But not window keys
+        if (code && code !== 91 && code !== 92) {
           eKeys.push(String.fromCharCode(code).toLowerCase());
         }
       break;

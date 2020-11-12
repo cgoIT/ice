@@ -1,18 +1,18 @@
-.CT-hide .del, .CT-hide .del {
+.CT-hide .del {
 	display: none;
 }
 
-.CT-hide .ins, .CT-hide .ins {
-	color: #333333;
+.CT-hide .ins {
+	//color: #333333 !important;
 	background: none !important;
-  border: none !important; 
+	border: none !important;
 }
 
 .ins,
 .del {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	color: #000;
+	color: #000 !important;
 	padding: 1px 0 2px;
 }
 
@@ -21,7 +21,45 @@
 }
 
 .del {
-	text-decoration: line-through;
-	color: #555;
+	text-decoration: line-through !important;
+	//color: #555;
 	background-color: #e8e8e8;
+}
+
+.ins[data-ice-tooltip],
+.del[data-ice-tooltip] {
+	position: relative;
+}
+
+.ins[data-ice-tooltip]:hover:after,
+.del[data-ice-tooltip]:hover:after {
+	 opacity: 1;
+	 transition: all 0.1s ease 0.5s;
+	 visibility: visible;
+}
+
+.ins[data-ice-tooltip]:after,
+.del[data-ice-tooltip]:after {
+	content: attr(data-ice-tooltip);
+	position: absolute;
+	bottom: -1.6em;
+	left: 100%;
+	padding: 4px 4px 4px 8px;
+	color: #222;
+	white-space: nowrap;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 0px 4px #222;
+	-webkit-box-shadow: 0px 0px 4px #222;
+	box-shadow: 0px 0px 4px #222;
+	background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f8f8f8),color-stop(1, #cccccc));
+	background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);
+	background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+	background-image: -ms-linear-gradient(top, #f8f8f8, #cccccc);
+	background-image: -o-linear-gradient(top, #f8f8f8, #cccccc);
+	opacity: 0;
+	z-index: 99999;
+	visibility: hidden;
 }
